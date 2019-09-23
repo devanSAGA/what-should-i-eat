@@ -1,9 +1,8 @@
- import React from 'react';
-import AddOption from './AddOption.js';
-import Options from './Options.js';
-import Header from './Header.js';
-import Action from './Action.js';
-
+import React from "react";
+import AddOption from "./AddOption.js";
+import Options from "./Options.js";
+import Header from "./Header.js";
+import Action from "./Action.js";
 
 class DecisionMakerApp extends React.Component {
   constructor(props) {
@@ -19,28 +18,28 @@ class DecisionMakerApp extends React.Component {
 
   componentDidMount() {
     try {
-      const json = localStorage.getItem('options');
+      const json = localStorage.getItem("options");
       const options = JSON.parse(json);
 
-      if(options){
-        this.setState(() => ({ options: options}));
+      if (options) {
+        this.setState(() => ({ options: options }));
       }
-    } catch(e) {
+    } catch (e) {
       //Do nothing
     }
   }
   componentDidUpdate(prevProps, prevState) {
-    if(prevState.options.length !== this.state.options.length){
+    if (prevState.options.length !== this.state.options.length) {
       const json = JSON.stringify(this.state.options);
-      localStorage.setItem('options', json);
+      localStorage.setItem("options", json);
     }
   }
   handleDeleteOptions() {
     this.setState(() => ({ options: [] }));
   }
   handleDeleteOption(option) {
-    this.setState((prevState) => ({
-      options: prevState.options.filter((opt) => option !== opt )
+    this.setState(prevState => ({
+      options: prevState.options.filter(opt => option !== opt)
     }));
   }
   handlePick() {
@@ -49,16 +48,18 @@ class DecisionMakerApp extends React.Component {
     alert(option);
   }
   handleAddOption(option) {
-    if(!option) {
-      return 'Enter Valid String';
-    } else if(this.state.options.indexOf(option) > -1) {
-      return 'This Value Already Exists In The List';
+    if (!option) {
+      return "Enter Valid String";
+    } else if (this.state.options.indexOf(option) > -1) {
+      return "This Value Already Exists In The List";
     }
 
-    this.setState((prevState) => ({options : prevState.options.concat([option])}));
+    this.setState(prevState => ({
+      options: prevState.options.concat([option])
+    }));
   }
   render() {
-    const subtitle = 'Let a Computer make a decision for you!';
+    const subtitle = "Let a computer make a decision for you!";
 
     return (
       <div>
@@ -74,11 +75,9 @@ class DecisionMakerApp extends React.Component {
               handleDeleteOptions={this.handleDeleteOptions}
               handleDeleteOption={this.handleDeleteOption}
             />
-            <AddOption
-              handleAddOption={this.handleAddOption}
-            />
+            <AddOption handleAddOption={this.handleAddOption} />
           </div>
-          </div>
+        </div>
       </div>
     );
   }
